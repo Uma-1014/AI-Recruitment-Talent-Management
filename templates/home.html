@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Recruitment & Talent Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f9fc;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            background: #2563eb;
+            color: white !important;
+            padding: 9px 17px;
+            border-radius: 7px;
+        }
+
+        .nav-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 90px 7% 80px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827 0%,
+                    #1e3a5f 55%,
+                    #2563eb 100%
+                );
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            color: #93c5fd;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #dbeafe;
+            max-width: 680px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: white;
+            color: #1d4ed8;
+        }
+
+        .primary-button:hover {
+            background: #eff6ff;
+        }
+
+        .secondary-button {
+            border: 1px solid #93c5fd;
+            color: white;
+        }
+
+        .secondary-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* AI Card */
+
+        .ai-card {
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 18px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .ai-card h3 {
+            font-size: 20px;
+            margin-bottom: 22px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: 700;
+            color: #93c5fd;
+        }
+
+        .score-label {
+            color: #dbeafe;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 9px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar {
+            width: 86%;
+            height: 100%;
+            background: #60a5fa;
+            border-radius: 20px;
+        }
+
+        .match-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: #e5e7eb;
+            font-size: 14px;
+        }
+
+        .match-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Section */
+
+        .section {
+            padding: 75px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 50px;
+        }
+
+        .section-heading h2 {
+            font-size: 34px;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .section-heading p {
+            color: #6b7280;
+        }
+
+        /* Feature cards */
+
+        .features {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            border-radius: 10px;
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Workflow */
+
+        .workflow {
+            background: #eef4ff;
+        }
+
+        .steps {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            text-align: center;
+            background: white;
+            padding: 25px 18px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+        }
+
+        .step-number {
+            width: 38px;
+            height: 38px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .step h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .step p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* CTA */
+
+        .cta {
+            padding: 70px 7%;
+            background: #111827;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #d1d5db;
+            max-width: 650px;
+            margin: 0 auto 28px;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #0b1120;
+            color: #9ca3af;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero {
+                padding: 60px 6%;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 55px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+        <div class="logo">
+            AI<span>Recruit</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/applications/jobs/">Find Jobs</a>
+            <a href="/candidate/profile/">Candidate Profile</a>
+            <a href="/ai/dashboard/">AI Dashboard</a>
+            <a href="/accounts/login/" class="nav-button">Login</a>
+        </div>
+    </nav>
+
+
+    <!-- Hero -->
+
+    <section class="hero">
+        <div class="hero-content">
+
+            <div>
+                <h1>
+                    Smarter Hiring with
+                    <span>Artificial Intelligence</span>
+                </h1>
+
+                <p>
+                    An AI-powered recruitment and talent management platform
+                    that analyzes resumes, matches candidates with jobs,
+                    and gives recruiters intelligent insights for better
+                    hiring decisions.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/applications/jobs/" class="primary-button">
+                        Explore Jobs
+                    </a>
+
+                    <a href="/candidate/profile/" class="secondary-button">
+                        Build Candidate Profile
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- AI Preview Card -->
+
+            <div class="ai-card">
+
+                <h3>AI Candidate Match</h3>
+
+                <div class="score">86%</div>
+
+                <div class="score-label">
+                    Strong Match
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+
+                <div class="match-row">
+                    <span>Skills Match</span>
+                    <strong>91%</strong>
+                </div>
+
+                <div class="match-row">
+                    <span>Experience</span>
+                    <strong>82%</strong>
+                </div>
+
+                <div class="match-row">
+                    <span>Education</span>
+                    <strong>78%</strong>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Features -->
+
+    <section class="section">
+
+        <div class="section-heading">
+            <h2>Intelligent Recruitment Platform</h2>
+
+            <p>
+                From resume analysis to candidate ranking,
+                the platform combines automation and AI-assisted
+                decision support throughout the recruitment process.
+            </p>
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">📄</div>
+
+                <h3>AI Resume Analysis</h3>
+
+                <p>
+                    Extract candidate skills, experience, education,
+                    contact information, and other relevant information
+                    from uploaded resumes.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+
+                <h3>Candidate Matching</h3>
+
+                <p>
+                    Compare candidate profiles with job requirements
+                    using skill overlap and TF-IDF based text similarity
+                    to generate an explainable match score.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+
+                <h3>Recruiter Analytics</h3>
+
+                <p>
+                    View candidate rankings, match distributions,
+                    job-level insights, and AI-generated recommendations
+                    through a recruiter dashboard.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+
+                <h3>Candidate Management</h3>
+
+                <p>
+                    Candidates can maintain their profiles, upload resumes,
+                    discover available positions, and track their
+                    applications.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+
+                <h3>Explainable AI Scores</h3>
+
+                <p>
+                    Break overall matching scores into skills,
+                    experience, and education components so recruiters
+                    can understand why candidates match.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+
+                <h3>Human-in-the-Loop Hiring</h3>
+
+                <p>
+                    AI provides decision support while recruiters remain
+                    responsible for reviewing candidates and making
+                    final hiring decisions.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Workflow -->
+
+    <section class="section workflow">
+
+        <div class="section-heading">
+
+            <h2>How the Platform Works</h2>
+
+            <p>
+                A simple AI-assisted workflow connecting candidates
+                and recruiters.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">1</div>
+
+                <h3>Upload Resume</h3>
+
+                <p>
+                    Candidate uploads a PDF or DOCX resume.
+                </p>
+            </div>
+
+
+            <div class="step">
+                <div class="step-number">2</div>
+
+                <h3>AI Analysis</h3>
+
+                <p>
+                    Resume information is extracted and analyzed.
+                </p>
+            </div>
+
+
+            <div class="step">
+                <div class="step-number">3</div>
+
+                <h3>Job Matching</h3>
+
+                <p>
+                    Candidate profile is compared with job requirements.
+                </p>
+            </div>
+
+
+            <div class="step">
+                <div class="step-number">4</div>
+
+                <h3>Recruiter Decision</h3>
+
+                <p>
+                    Recruiters review AI insights and manage application
+                    status.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <h2>Build Better Hiring Decisions</h2>
+
+        <p>
+            Use AI-powered insights to reduce manual screening effort,
+            understand candidate-job compatibility, and manage the
+            recruitment lifecycle in one platform.
+        </p>
+
+        <a href="/applications/jobs/" class="primary-button">
+            View Available Jobs
+        </a>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+        © 2026 AIRecruit — AI Recruitment & Talent Management Platform
+    </footer>
+
+</body>
+</html>

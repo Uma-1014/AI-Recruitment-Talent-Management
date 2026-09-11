@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Job Opportunities</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f4f7fb;
+
+            color: #1f2937;
+        }
+
+
+        .navbar {
+
+            background: #173f5f;
+
+            color: white;
+
+            padding: 18px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .navbar h2 {
+
+            margin: 0;
+        }
+
+
+        .navbar a {
+
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 22px;
+        }
+
+
+        .navbar a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .header {
+
+            margin-bottom: 30px;
+        }
+
+
+        .header h1 {
+
+            color: #173f5f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+
+            color: #6b7280;
+        }
+
+
+        .ai-banner {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.07);
+
+            border-left:
+                5px solid #7c3aed;
+        }
+
+
+        .ai-banner h2 {
+
+            margin-top: 0;
+
+            color: #7c3aed;
+        }
+
+
+        .job-card {
+
+            background: white;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .job-title {
+
+            color: #173f5f;
+
+            margin-top: 0;
+
+            margin-bottom: 10px;
+        }
+
+
+        .job-meta {
+
+            color: #6b7280;
+
+            margin-bottom: 18px;
+        }
+
+
+        .skills {
+
+            background: #eff6ff;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin: 15px 0;
+        }
+
+
+        .description {
+
+            line-height: 1.6;
+        }
+
+
+        .job-actions {
+
+            margin-top: 22px;
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .apply-btn {
+
+            display: inline-block;
+
+            background: #7c3aed;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        .apply-btn:hover {
+
+            background: #6d28d9;
+        }
+
+
+        .applied-btn {
+
+            display: inline-block;
+
+            background: #d1fae5;
+
+            color: #065f46;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        .applications-btn {
+
+            display: inline-block;
+
+            background: #0f766e;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        .applications-btn:hover {
+
+            background: #115e59;
+        }
+
+
+        .empty {
+
+            background: white;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            color: #6b7280;
+        }
+
+
+        .message {
+
+            padding: 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            background: #ecfdf5;
+
+            color: #065f46;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="navbar">
+
+        <h2>
+            AI Recruitment
+        </h2>
+
+
+        <div>
+
+            <a href="/applications/jobs/">
+                Jobs
+            </a>
+
+            <a href="/applications/my-applications/">
+                My Applications
+            </a>
+
+            <a href="/candidate/profile/">
+                Candidate Profile
+            </a>
+
+            <a href="/admin/">
+                Admin
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="container">
+
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+
+        <div class="header">
+
+            <h1>
+                AI Job Opportunities
+            </h1>
+
+            <p>
+                Explore opportunities and let our AI engine
+                evaluate your job match automatically.
+            </p>
+
+        </div>
+
+
+
+        <div class="ai-banner">
+
+            <h2>
+                🤖 AI-Powered Recruitment
+            </h2>
+
+            <p>
+                When you apply for a job, the AI engine automatically
+                analyzes your skills, experience, and education against
+                the job requirements.
+            </p>
+
+            <p>
+                Your application receives an AI-generated
+                <strong>Match Score</strong> and
+                <strong>Recommendation</strong>.
+            </p>
+
+        </div>
+
+
+
+        {% if jobs %}
+
+
+            {% for job in jobs %}
+
+
+                <div class="job-card">
+
+
+                    <h2 class="job-title">
+
+                        {{ job.title }}
+
+                    </h2>
+
+
+
+                    <div class="job-meta">
+
+                        📍
+                        {{ job.location|default:"Location not specified" }}
+
+                        &nbsp; | &nbsp;
+
+                        💼
+                        {{ job.get_job_type_display }}
+
+                        &nbsp; | &nbsp;
+
+                        🎯
+                        {{ job.experience_required }}
+                        years experience
+
+                    </div>
+
+
+
+                    <div class="description">
+
+                        <strong>
+                            Job Description
+                        </strong>
+
+                        <p>
+                            {{ job.description }}
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="skills">
+
+                        <strong>
+                            Required Skills:
+                        </strong>
+
+                        {{ job.required_skills }}
+
+                    </div>
+
+
+
+                    {% if job.education_required %}
+
+                        <p>
+
+                            <strong>
+                                Education:
+                            </strong>
+
+                            {{ job.education_required }}
+
+                        </p>
+
+                    {% endif %}
+
+
+
+                    {% if job.salary_min or job.salary_max %}
+
+                        <p>
+
+                            <strong>
+                                Salary:
+                            </strong>
+
+
+                            {% if job.salary_min %}
+
+                                ₹{{ job.salary_min }}
+
+                            {% endif %}
+
+
+                            {% if job.salary_min and job.salary_max %}
+
+                                -
+
+                            {% endif %}
+
+
+                            {% if job.salary_max %}
+
+                                ₹{{ job.salary_max }}
+
+                            {% endif %}
+
+                        </p>
+
+                    {% endif %}
+
+
+
+                    <div class="job-actions">
+
+
+                        {% if job.id in applied_job_ids %}
+
+                            <span class="applied-btn">
+
+                                ✓ Already Applied
+
+                            </span>
+
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'apply_job' job.id %}"
+                                class="apply-btn"
+                            >
+
+                                🤖 Apply & AI Screen
+
+                            </a>
+
+                        {% endif %}
+
+
+
+                        <a
+                            href="{% url 'my_applications' %}"
+                            class="applications-btn"
+                        >
+
+                            View My Applications
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="empty">
+
+                <h2>
+                    No active jobs available
+                </h2>
+
+                <p>
+                    Please check back later for new opportunities.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Candidate Ranking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .brand span {
+            color: #60a5fa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #dbeafe;
+            text-decoration: none;
+
+            padding: 9px 13px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            background: #1e293b;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            width: 86%;
+            max-width: 1400px;
+
+            margin: 35px auto 60px;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #172554,
+                #1e40af,
+                #2563eb
+            );
+
+            color: white;
+
+            border-radius: 22px;
+
+            padding: 40px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 12px 35px rgba(30, 64, 175, 0.18);
+        }
+
+        .badge {
+            display: inline-block;
+
+            background: rgba(255,255,255,0.15);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            line-height: 1.7;
+            max-width: 850px;
+        }
+
+
+        /* JOB INFORMATION */
+
+        .job-info {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .job-title {
+            font-size: 25px;
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .job-details {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .job-tag {
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+        }
+
+        .skills {
+            margin-top: 18px;
+
+            color: #475569;
+
+            line-height: 1.6;
+        }
+
+        .skills strong {
+            color: #172033;
+        }
+
+
+        /* AI STATUS */
+
+        .ai-status {
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            border-radius: 14px;
+
+            padding: 18px 20px;
+
+            margin-bottom: 25px;
+
+            color: #1e3a8a;
+        }
+
+        .ai-status strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        /* MATCH LIST */
+
+        .section {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .section-title {
+            font-size: 23px;
+            margin-bottom: 7px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* CANDIDATE CARD */
+
+        .candidate-card {
+            border: 1px solid #e2e8f0;
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            margin-bottom: 18px;
+
+            background: #fafcff;
+        }
+
+        .candidate-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .candidate-header {
+            display: grid;
+
+            grid-template-columns:
+                60px 1fr 160px;
+
+            gap: 18px;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .rank {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+        .candidate-name {
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+        .candidate-email {
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 4px;
+        }
+
+        .candidate-location {
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+
+        /* SCORE */
+
+        .overall-score {
+            text-align: center;
+
+            background: #eff6ff;
+
+            border-radius: 12px;
+
+            padding: 14px;
+        }
+
+        .score-number {
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color: #2563eb;
+        }
+
+        .score-label {
+            font-size: 11px;
+
+            color: #64748b;
+
+            margin-top: 3px;
+        }
+
+
+        /* RECOMMENDATION */
+
+        .recommendation {
+            display: inline-block;
+
+            margin-bottom: 20px;
+
+            padding: 8px 13px;
+
+            border-radius: 20px;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        /* SCORE BREAKDOWN */
+
+        .breakdown-title {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .score-row {
+            margin-bottom: 15px;
+        }
+
+        .score-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .score-info {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 7px;
+        }
+
+        .score-name {
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #475569;
+        }
+
+        .score-value {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+        .progress {
+            height: 9px;
+
+            background: #e2e8f0;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            background: #2563eb;
+
+            border-radius: 20px;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+
+            padding: 40px;
+
+            color: #64748b;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            padding-top: 25px;
+
+            line-height: 1.7;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .candidate-header {
+                grid-template-columns: 50px 1fr;
+            }
+
+            .overall-score {
+                grid-column: 1 / -1;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            🤖 <span>AI</span> Recruitment
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'ai_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                Jobs
+            </a>
+
+            <a href="{% url 'candidate_profile' %}">
+                Candidate Profile
+            </a>
+
+            <a href="/applications/jobs/">
+                Applications
+            </a>
+
+            <a href="/admin/">
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <main class="container">
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="badge">
+
+                🤖 AI Candidate Screening
+
+            </div>
+
+
+            <h1>
+
+                AI Candidate Ranking
+
+            </h1>
+
+
+            <p>
+
+                Candidates are automatically ranked according to
+                their compatibility with the selected job using
+                NLP-based skill matching, experience analysis,
+                and education matching.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- JOB INFORMATION -->
+
+        <section class="job-info">
+
+            <div class="job-title">
+
+                {{ job.title }}
+
+            </div>
+
+
+            <div class="job-details">
+
+                {% if job.location %}
+
+                <div class="job-tag">
+                    📍 {{ job.location }}
+                </div>
+
+                {% endif %}
+
+
+                <div class="job-tag">
+
+                    💼 {{ job.get_job_type_display }}
+
+                </div>
+
+
+                <div class="job-tag">
+
+                    📈 {{ job.experience_required }} years experience
+
+                </div>
+
+            </div>
+
+
+            <div class="skills">
+
+                <strong>Required Skills:</strong>
+
+                {{ job.required_skills }}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- AI STATUS -->
+
+        <div class="ai-status">
+
+            <strong>
+                🧠 AI Ranking Active
+            </strong>
+
+            The system evaluates candidate skills,
+            experience, and education to calculate
+            an interpretable compatibility score.
+
+        </div>
+
+
+
+        <!-- MATCH RESULTS -->
+
+        <section class="section">
+
+
+            <h2 class="section-title">
+
+                🏆 Ranked Candidates
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Candidates are ordered from highest
+                to lowest AI compatibility score.
+
+            </p>
+
+
+
+            {% if matches %}
+
+
+                {% for match in matches %}
+
+
+                <div class="candidate-card">
+
+
+                    <!-- HEADER -->
+
+                    <div class="candidate-header">
+
+
+                        <div class="rank">
+
+                            #{{ forloop.counter }}
+
+                        </div>
+
+
+
+                        <div>
+
+                            <div class="candidate-name">
+
+                                {{ match.candidate.full_name }}
+
+                            </div>
+
+
+                            <div class="candidate-email">
+
+                                {{ match.candidate.email }}
+
+                            </div>
+
+
+                            {% if match.candidate.location %}
+
+                            <div class="candidate-location">
+
+                                📍 {{ match.candidate.location }}
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="overall-score">
+
+                            <div class="score-number">
+
+                                {{ match.match_score|floatformat:1 }}%
+
+                            </div>
+
+                            <div class="score-label">
+
+                                OVERALL MATCH
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- RECOMMENDATION -->
+
+                    <div class="recommendation">
+
+                        🤖 {{ match.recommendation }}
+
+                    </div>
+
+
+
+                    <!-- SCORE BREAKDOWN -->
+
+                    <div class="breakdown-title">
+
+                        AI Score Breakdown
+
+                    </div>
+
+
+
+                    <!-- SKILLS -->
+
+                    <div class="score-row">
+
+                        <div class="score-info">
+
+                            <span class="score-name">
+                                Skills Match
+                            </span>
+
+                            <span class="score-value">
+                                {{ match.skills_score|floatformat:1 }}%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width: {{ match.skills_score }}%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="score-row">
+
+                        <div class="score-info">
+
+                            <span class="score-name">
+                                Experience Match
+                            </span>
+
+                            <span class="score-value">
+                                {{ match.experience_score|floatformat:1 }}%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width: {{ match.experience_score }}%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EDUCATION -->
+
+                    <div class="score-row">
+
+                        <div class="score-info">
+
+                            <span class="score-name">
+                                Education Match
+                            </span>
+
+                            <span class="score-value">
+                                {{ match.education_score|floatformat:1 }}%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width: {{ match.education_score }}%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="empty">
+
+                    No candidate matches have been generated yet.
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            AI Recruitment & Talent Management System
+
+            <br>
+
+            NLP-based matching • Resume intelligence •
+            Explainable candidate scoring
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

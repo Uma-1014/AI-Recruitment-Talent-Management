@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Candidate Profile</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f7fb;
+
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            background: #173f5f;
+
+            color: white;
+
+            padding: 18px 35px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .navbar h2 {
+
+            margin: 0;
+        }
+
+
+        .navbar-links {
+
+            display: flex;
+
+            gap: 22px;
+        }
+
+
+        .navbar a {
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+
+        .navbar a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+
+            max-width: 900px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+
+        h1 {
+
+            color: #173f5f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           AI HERO
+        ========================= */
+
+        .ai-box {
+
+            background: white;
+
+            border-left: 6px solid #7c3aed;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 4px 16px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .ai-box h2 {
+
+            margin-top: 0;
+
+            color: #7c3aed;
+        }
+
+
+        .ai-box p {
+
+            color: #475569;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .message {
+
+            background: #ecfdf5;
+
+            border: 1px solid #a7f3d0;
+
+            color: #065f46;
+
+            padding: 14px 18px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .form-card h2 {
+
+            color: #173f5f;
+
+            margin-top: 0;
+
+            margin-bottom: 25px;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            color: #334155;
+        }
+
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+
+        .form-control:focus {
+
+            outline: none;
+
+            border-color: #7c3aed;
+        }
+
+
+        textarea.form-control {
+
+            resize: vertical;
+        }
+
+
+        input[type="file"] {
+
+            background: #f8fafc;
+        }
+
+
+        .helptext {
+
+            display: block;
+
+            margin-top: 6px;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        .errorlist {
+
+            color: #dc2626;
+
+            padding-left: 20px;
+        }
+
+
+        /* =========================
+           RESUME
+        ========================= */
+
+        .resume-box {
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            padding: 18px;
+
+            border-radius: 8px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .resume-box strong {
+
+            color: #173f5f;
+        }
+
+
+        .resume-box a {
+
+            color: #7c3aed;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================
+           AI STATUS
+        ========================= */
+
+        .ai-status {
+
+            background: #f5f3ff;
+
+            border: 1px solid #ddd6fe;
+
+            padding: 18px;
+
+            border-radius: 8px;
+
+            margin-top: 25px;
+
+            color: #5b21b6;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .submit-btn {
+
+            background: #7c3aed;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 24px;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 10px;
+        }
+
+
+        .submit-btn:hover {
+
+            background: #6d28d9;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+
+            .navbar-links {
+
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <div class="navbar">
+
+        <h2>
+            AI Recruitment
+        </h2>
+
+
+        <div class="navbar-links">
+
+            <a href="/ai/dashboard/">
+                🤖 AI Dashboard
+            </a>
+
+            <a href="/applications/jobs/">
+                Jobs
+            </a>
+
+            <a href="/applications/my-applications/">
+                My Applications
+            </a>
+
+            <a href="/admin/">
+                Admin
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="container">
+
+
+        <h1>
+            👤 Candidate Profile
+        </h1>
+
+        <p class="subtitle">
+            Build your profile and let the AI recruitment
+            engine analyze your resume automatically.
+        </p>
+
+
+
+        <!-- =========================
+             MESSAGES
+        ========================= -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+
+        <!-- =========================
+             AI INFORMATION
+        ========================= -->
+
+        <div class="ai-box">
+
+            <h2>
+                🤖 AI Resume Intelligence
+            </h2>
+
+            <p>
+                Upload your resume and our AI engine will
+                automatically analyze it.
+            </p>
+
+            <p>
+
+                The system extracts:
+
+                <strong>
+                    skills
+                </strong>,
+
+                <strong>
+                    experience
+                </strong>,
+
+                <strong>
+                    education
+                </strong>,
+
+                <strong>
+                    email
+                </strong>
+
+                and
+
+                <strong>
+                    phone
+                </strong>.
+
+            </p>
+
+            <p>
+                The extracted information is then used by
+                the AI matching engine to calculate your
+                suitability for available jobs.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             PROFILE FORM
+        ========================= -->
+
+        <div class="form-card">
+
+            <h2>
+                Candidate Information
+            </h2>
+
+
+            {% if candidate.resume %}
+
+                <div class="resume-box">
+
+                    <strong>
+                        📄 Current Resume:
+                    </strong>
+
+                    <a
+                        href="{{ candidate.resume.url }}"
+                        target="_blank"
+                    >
+                        View Resume
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                {% for field in form %}
+
+                    <div class="form-group">
+
+                        {{ field.label_tag }}
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+
+                            <span class="helptext">
+
+                                {{ field.help_text }}
+
+                            </span>
+
+                        {% endif %}
+
+
+                        {% if field.errors %}
+
+                            {{ field.errors }}
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    🤖 Upload & Analyze Resume
+                </button>
+
+            </form>
+
+
+            <div class="ai-status">
+
+                🤖 <strong>AI Status:</strong>
+
+                Your resume will be automatically
+                analyzed after upload.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

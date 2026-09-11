@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Job | AI Recruitment</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #173f5f;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #0f766e;
+        }
+
+        .helptext {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #dc2626;
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background: #0f766e;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #115e59;
+        }
+
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #374151;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>AI Recruitment</h2>
+
+        <div>
+            <span>Welcome, {{ request.user.username }}</span>
+            <a href="{% url 'job_list' %}">Jobs</a>
+            <a href="/admin/">Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="header">
+                <h1>Create New Job</h1>
+
+                <p>
+                    Add a recruitment opportunity and define the
+                    requirements used for candidate matching.
+                </p>
+            </div>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                    {% if field.name == 'is_active' %}
+
+                        <div class="form-group checkbox-group">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="form-group">
+
+                            {{ field.label_tag }}
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <div class="helptext">
+                                    {{ field.help_text }}
+                                </div>
+                            {% endif %}
+
+                            {{ field.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                <div class="buttons">
+
+                    <button type="submit" class="submit-btn">
+                        Create Job
+                    </button>
+
+                    <a href="{% url 'job_list' %}" class="cancel-btn">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

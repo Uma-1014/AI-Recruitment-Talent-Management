@@ -1,0 +1,1242 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Recruitment Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .brand span {
+            color: #60a5fa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #dbeafe;
+            text-decoration: none;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            background: #1e293b;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 86%;
+            max-width: 1400px;
+            margin: 35px auto 60px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #172554,
+                #1e40af,
+                #2563eb
+            );
+
+            color: white;
+
+            border-radius: 22px;
+
+            padding: 42px;
+
+            margin-bottom: 28px;
+
+            box-shadow:
+                0 12px 35px rgba(30, 64, 175, 0.18);
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            max-width: 800px;
+
+            line-height: 1.7;
+
+            color: #dbeafe;
+        }
+
+
+        /* =========================
+           STATISTICS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        .stat-label {
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+        .stat-description {
+            margin-top: 8px;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            margin-bottom: 28px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .section-title {
+            font-size: 22px;
+
+            margin-bottom: 7px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 24px;
+        }
+
+
+        /* =========================
+           MATCH DISTRIBUTION
+        ========================= */
+
+        .match-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+        }
+
+        .match-card {
+            padding: 22px;
+
+            border-radius: 14px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .match-card h3 {
+            font-size: 14px;
+
+            color: #64748b;
+
+            margin-bottom: 12px;
+        }
+
+        .match-number {
+            font-size: 30px;
+
+            font-weight: 700;
+        }
+
+        .match-range {
+            margin-top: 6px;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =========================
+           TOP CANDIDATES
+        ========================= */
+
+        .candidate-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .candidate-row {
+            display: grid;
+
+            grid-template-columns:
+                60px 1fr 120px 140px;
+
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 17px;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+        }
+
+        .candidate-rank {
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            font-weight: 700;
+        }
+
+        .candidate-name {
+            font-weight: 700;
+
+            margin-bottom: 4px;
+        }
+
+        .candidate-job {
+            font-size: 13px;
+
+            color: #64748b;
+        }
+
+        .score {
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #2563eb;
+        }
+
+        .recommendation {
+            display: inline-block;
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           JOB INSIGHTS
+        ========================= */
+
+        .job-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+        .job-card {
+            padding: 22px;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            background: #fafcff;
+        }
+
+        .job-title {
+            font-size: 18px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .job-meta {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+        .job-stat {
+            background: #f1f5f9;
+
+            padding: 14px;
+
+            border-radius: 10px;
+        }
+
+        .job-stat-label {
+            font-size: 11px;
+
+            color: #64748b;
+
+            margin-bottom: 5px;
+        }
+
+        .job-stat-value {
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+        .match-button {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            padding: 10px 15px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .match-button:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* =========================
+           AI PROCESS
+        ========================= */
+
+        .process-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+        }
+
+        .process-card {
+            text-align: center;
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .process-icon {
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+        .process-card h3 {
+            font-size: 15px;
+
+            margin-bottom: 8px;
+        }
+
+        .process-card p {
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            padding: 30px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            padding-top: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .stats-grid,
+            .match-grid,
+            .process-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .job-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .stats-grid,
+            .match-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .candidate-row {
+                grid-template-columns:
+                    45px 1fr;
+            }
+
+            .candidate-row .score,
+            .candidate-row .recommendation {
+                grid-column: 2;
+            }
+
+            .job-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ======================================
+         NAVIGATION
+    ======================================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            🤖 <span>AI</span> Recruitment
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'ai_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                Jobs
+            </a>
+
+            <a href="{% url 'candidate_profile' %}">
+                Candidate Profile
+            </a>
+
+            <!-- FIXED APPLICATIONS LINK -->
+
+            <a href="/applications/jobs/">
+                Applications
+            </a>
+
+            <a href="/admin/">
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ======================================
+         MAIN CONTENT
+    ======================================= -->
+
+    <main class="container">
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+
+                🤖 AI-Powered Talent Intelligence
+
+            </div>
+
+
+            <h1>
+
+                AI Recruitment Dashboard
+
+            </h1>
+
+
+            <p>
+
+                Analyze candidates, rank talent automatically,
+                and identify the strongest candidate-job matches
+                using NLP-based matching, skill analysis,
+                experience evaluation, and education matching.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- ======================================
+             STATISTICS
+        ======================================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Active Jobs
+                </div>
+
+                <div class="stat-value">
+                    {{ job_count }}
+                </div>
+
+                <div class="stat-description">
+                    Job opportunities being managed
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Candidates
+                </div>
+
+                <div class="stat-value">
+                    {{ candidate_count }}
+                </div>
+
+                <div class="stat-description">
+                    Candidate profiles available
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Applications
+                </div>
+
+                <div class="stat-value">
+                    {{ application_count }}
+                </div>
+
+                <div class="stat-description">
+                    Applications received
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Average AI Score
+                </div>
+
+                <div class="stat-value">
+                    {{ average_score }}%
+                </div>
+
+                <div class="stat-description">
+                    Average candidate-job compatibility
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             MATCH DISTRIBUTION
+        ======================================= -->
+
+        <section class="section">
+
+
+            <h2 class="section-title">
+
+                📊 AI Match Distribution
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Candidate recommendations based on
+                overall AI compatibility scores.
+
+            </p>
+
+
+            <div class="match-grid">
+
+
+                <div class="match-card">
+
+                    <h3>
+                        Strong Matches
+                    </h3>
+
+                    <div class="match-number">
+                        {{ strong_matches }}
+                    </div>
+
+                    <div class="match-range">
+                        80% – 100%
+                    </div>
+
+                </div>
+
+
+
+                <div class="match-card">
+
+                    <h3>
+                        Good Matches
+                    </h3>
+
+                    <div class="match-number">
+                        {{ good_matches }}
+                    </div>
+
+                    <div class="match-range">
+                        60% – 79%
+                    </div>
+
+                </div>
+
+
+
+                <div class="match-card">
+
+                    <h3>
+                        Potential Matches
+                    </h3>
+
+                    <div class="match-number">
+                        {{ potential_matches }}
+                    </div>
+
+                    <div class="match-range">
+                        40% – 59%
+                    </div>
+
+                </div>
+
+
+
+                <div class="match-card">
+
+                    <h3>
+                        Low Matches
+                    </h3>
+
+                    <div class="match-number">
+                        {{ low_matches }}
+                    </div>
+
+                    <div class="match-range">
+                        Below 40%
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             TOP CANDIDATES
+        ======================================= -->
+
+        <section class="section">
+
+
+            <h2 class="section-title">
+
+                🏆 Top AI-Ranked Candidates
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Highest-scoring candidates based on
+                AI screening results.
+
+            </p>
+
+
+
+            {% if top_candidates %}
+
+
+            <div class="candidate-list">
+
+
+                {% for application in top_candidates %}
+
+
+                <div class="candidate-row">
+
+
+                    <div class="candidate-rank">
+
+                        {{ forloop.counter }}
+
+                    </div>
+
+
+
+                    <div>
+
+                        <div class="candidate-name">
+
+                            {{ application.candidate.full_name }}
+
+                        </div>
+
+
+                        <div class="candidate-job">
+
+                            {{ application.job.title }}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="score">
+
+                        {{ application.match_score|floatformat:1 }}%
+
+                    </div>
+
+
+
+                    <div class="recommendation">
+
+                        {% if application.match_score >= 80 %}
+
+                            Strong Match
+
+                        {% elif application.match_score >= 60 %}
+
+                            Good Match
+
+                        {% elif application.match_score >= 40 %}
+
+                            Potential Match
+
+                        {% else %}
+
+                            Low Match
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="empty">
+
+                No AI-screened candidates yet.
+
+                <br>
+
+                Run AI Matching for a job to generate rankings.
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             JOB-WISE INSIGHTS
+        ======================================= -->
+
+        <section class="section">
+
+
+            <h2 class="section-title">
+
+                💼 Job-wise AI Insights
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Compare candidate availability and
+                AI matching performance across jobs.
+
+            </p>
+
+
+
+            {% if job_insights %}
+
+
+            <div class="job-grid">
+
+
+                {% for insight in job_insights %}
+
+
+                <div class="job-card">
+
+
+                    <div class="job-title">
+
+                        {{ insight.job.title }}
+
+                    </div>
+
+
+
+                    <div class="job-meta">
+
+
+                        <div class="job-stat">
+
+                            <div class="job-stat-label">
+                                APPLICATIONS
+                            </div>
+
+                            <div class="job-stat-value">
+                                {{ insight.application_count }}
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="job-stat">
+
+                            <div class="job-stat-label">
+                                AVG SCORE
+                            </div>
+
+                            <div class="job-stat-value">
+                                {{ insight.average_score }}%
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="job-stat">
+
+                            <div class="job-stat-label">
+                                TOP SCORE
+                            </div>
+
+                            <div class="job-stat-value">
+                                {{ insight.top_score }}%
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <a
+                        href="{% url 'match_candidates' insight.job.id %}"
+                        class="match-button"
+                    >
+
+                        🤖 Run AI Matching
+
+                    </a>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="empty">
+
+                No jobs available yet.
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             AI PROCESS
+        ======================================= -->
+
+        <section class="section">
+
+
+            <h2 class="section-title">
+
+                🧠 How the AI Screening Works
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                The platform combines multiple signals
+                to calculate candidate-job compatibility.
+
+            </p>
+
+
+
+            <div class="process-grid">
+
+
+                <div class="process-card">
+
+                    <div class="process-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        Resume Intelligence
+                    </h3>
+
+                    <p>
+
+                        Extract candidate information,
+                        skills, experience, and education
+                        from uploaded resumes.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <div class="process-icon">
+                        🔤
+                    </div>
+
+                    <h3>
+                        NLP Matching
+                    </h3>
+
+                    <p>
+
+                        Compare candidate skills with
+                        job requirements using skill overlap
+                        and TF-IDF similarity.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <div class="process-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        Score Calculation
+                    </h3>
+
+                    <p>
+
+                        Combine skills, experience,
+                        and education scores into an
+                        overall compatibility score.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <div class="process-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        Candidate Ranking
+                    </h3>
+
+                    <p>
+
+                        Rank candidates automatically
+                        and provide interpretable
+                        recruitment recommendations.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             FOOTER
+        ======================================= -->
+
+        <div class="footer">
+
+            AI Recruitment & Talent Management System
+
+            <br>
+
+            NLP-based candidate matching
+            • Automated resume intelligence
+            • AI candidate ranking
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

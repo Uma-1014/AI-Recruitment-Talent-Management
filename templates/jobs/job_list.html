@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jobs | AI Recruitment</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #173f5f;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+        }
+
+        .header p {
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .create-btn {
+            display: inline-block;
+            background: #0f766e;
+            color: white;
+            text-decoration: none;
+            padding: 13px 22px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .create-btn:hover {
+            background: #115e59;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .job-title {
+            margin: 0 0 8px 0;
+            color: #173f5f;
+        }
+
+        .job-meta {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .skills {
+            background: #eff6ff;
+            padding: 12px;
+            border-radius: 7px;
+            margin-top: 15px;
+        }
+
+        .salary {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .job-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ai-btn {
+            display: inline-block;
+            background: #7c3aed;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .ai-btn:hover {
+            background: #6d28d9;
+        }
+
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .header {
+                display: block;
+            }
+
+            .header .create-btn {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h2>AI Recruitment</h2>
+
+        <div>
+            <span>Welcome, {{ request.user.username }}</span>
+
+            <a href="/candidate/profile/">
+                Candidate Profile
+            </a>
+
+            <a href="/admin/">
+                Admin
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="header">
+
+            <div>
+                <h1>Job Management</h1>
+
+                <p>
+                    Create and manage your recruitment opportunities.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'create_job' %}"
+                class="create-btn"
+            >
+                + Create New Job
+            </a>
+
+        </div>
+
+
+        {% if jobs %}
+
+            {% for job in jobs %}
+
+                <div class="job-card">
+
+                    <h2 class="job-title">
+
+                        {{ job.title }}
+
+                        {% if job.is_active %}
+
+                            <span class="status active">
+                                Active
+                            </span>
+
+                        {% else %}
+
+                            <span class="status inactive">
+                                Inactive
+                            </span>
+
+                        {% endif %}
+
+                    </h2>
+
+
+                    <div class="job-meta">
+
+                        {{ job.location|default:"Location not specified" }}
+
+                        &nbsp; | &nbsp;
+
+                        {{ job.get_job_type_display }}
+
+                        &nbsp; | &nbsp;
+
+                        {{ job.experience_required }}
+                        years experience
+
+                    </div>
+
+
+                    <p>
+                        {{ job.description }}
+                    </p>
+
+
+                    <div class="skills">
+
+                        <strong>
+                            Required Skills:
+                        </strong>
+
+                        {{ job.required_skills }}
+
+                    </div>
+
+
+                    {% if job.education_required %}
+
+                        <p>
+
+                            <strong>
+                                Education:
+                            </strong>
+
+                            {{ job.education_required }}
+
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if job.salary_min or job.salary_max %}
+
+                        <div class="salary">
+
+                            Salary:
+
+                            {% if job.salary_min %}
+
+                                ₹{{ job.salary_min }}
+
+                            {% endif %}
+
+
+                            {% if job.salary_min and job.salary_max %}
+
+                                -
+
+                            {% endif %}
+
+
+                            {% if job.salary_max %}
+
+                                ₹{{ job.salary_max }}
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- AI MATCHING ACTION -->
+
+                    <div class="job-actions">
+
+                        <a
+                            href="{% url 'match_candidates' job.id %}"
+                            class="ai-btn"
+                        >
+                            🤖 Run AI Matching
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty">
+
+                <h2>
+                    No jobs created yet
+                </h2>
+
+                <p>
+                    Create your first job to start building
+                    your recruitment pipeline.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
